@@ -12,10 +12,6 @@ function AddRecipe() {
 
   const [recipeName, setRecipeName] = useState("");
 
-  useEffect(() => {
-
-  }, []);
-
   const getRecipeToAdd = () => {
     dispatch({ type: 'FETCH_RECIPE_TO_ADD'})
   };

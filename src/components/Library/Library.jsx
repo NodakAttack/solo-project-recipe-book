@@ -1,9 +1,40 @@
-import React from 'react'
+import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Library = () => {
-  return (
-    <div>Library</div>
-  )
-}
+  const dispatch = useDispatch();
+  const recipeList = useSelector((store) => store.recipeList);
 
-export default Library
+  useEffect(() => {
+    getRecipeList();
+  }, []);
+
+  const getRecipeList = () => {
+    dispatch({ type: "FETCH_RECIPE_LIST" });
+  };
+
+  return (
+    <div className="container">
+      <h2>Recipe List:</h2>
+      <div>
+        {recipeList.map((recipe) => (
+          <div
+            key={recipe.id}
+            style={{
+              padding: "10px",
+              margin: "10px",
+              borderRadius: "10px",
+              border: "2px solid gray",
+            }}
+          >
+            <h4>{recipe.name}</h4>
+            <p>User ID: {recipe.id}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Library;

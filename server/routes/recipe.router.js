@@ -5,8 +5,31 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-  // GET route code here
+router.get("/", (req, res) => {
+  console.log("/pet GET route");
+  console.log("is authenticated?", req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    console.log("user", req.user);
+    let queryText = `SELECT * FROM "recipes" WHERE "id" = $1;`;
+    // authorization
+    let queryParams = [req.user.id];
+    if(req.user.access_level > 0) {
+        // admins can see all pets
+        queryText = `SELECT * FROM "recipes";`;
+        queryParams = [];
+    }
+    pool
+      .query(queryText, queryParams)
+      .then((result) => {
+        res.send(result.rows);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(401);
+  }
 });
 
 /**
