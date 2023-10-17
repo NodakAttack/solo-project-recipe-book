@@ -19,6 +19,7 @@ import AddRecipe from '../AddRecipe/AddRecipe';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import Library from '../Library/Library';
 
 import './App.css';
 
@@ -61,7 +62,15 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows Library else shows LoginPage
+            exact
+            path="/library"
+          >
+            <Library />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows addRecipe else shows LoginPage
             exact
             path="/addRecipe"
           >
