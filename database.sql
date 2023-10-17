@@ -6,5 +6,41 @@
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+    "password" VARCHAR (1000) NOT NULL,
+  "email" varchar,
+  "dateCreated" date,
+  "picture" varchar
 );
+
+CREATE TABLE "recipes" (
+  "recipeID" SERIAL PRIMARY KEY,
+  "id" int,
+  "name" varchar,
+  "course" varchar,
+  "notes" text,
+  "rating" int,
+  "picture" varchar,
+  "isFavorite" bool,
+  "isShared" bool
+);
+
+CREATE TABLE "ingredients" (
+  "ingredientID" SERIAL PRIMARY KEY,
+  "recipeID" int,
+  "name" varchar,
+  "quantity" decimal,
+  "unit" varchar
+);
+
+CREATE TABLE "steps" (
+  "stepID" SERIAL PRIMARY KEY,
+  "recipeID" int,
+  "description" text,
+  "order" int
+);
+
+ALTER TABLE "recipes" ADD FOREIGN KEY ("id") REFERENCES "user" ("id");
+
+ALTER TABLE "ingredients" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
+
+ALTER TABLE "steps" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
