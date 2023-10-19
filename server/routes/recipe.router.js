@@ -13,11 +13,11 @@ router.get("/", (req, res) => {
     let queryText = `SELECT * FROM "recipes" WHERE "id" = $1;`;
     // authorization
     let queryParams = [req.user.id];
-    if(req.user.access_level > 0) {
-        // admins can see all recipes. TODO
-        queryText = `SELECT * FROM "recipes";`;
-        queryParams = [];
-    }
+    // if(req.user.access_level > 0) {
+    //     // admins can see all recipes. TODO
+    //     queryText = `SELECT * FROM "recipes";`;
+    //     queryParams = [];
+    // }
     pool
       .query(queryText, queryParams)
       .then((result) => {
