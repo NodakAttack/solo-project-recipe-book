@@ -73,7 +73,7 @@ function App() {
           <ProtectedRoute
             // logged in shows RecipeView else shows LoginPage
             exact
-            path="/detail/:recipeID"
+            path="/detail/:recipeID" 
           >
             <RecipeView />
           </ProtectedRoute>

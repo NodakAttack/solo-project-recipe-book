@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const Library = () => {
   const dispatch = useDispatch();
-  
+  const history = useHistory();
   const recipeList = useSelector((store) => store.recipeList);
 
   useEffect(() => {
@@ -14,6 +15,11 @@ const Library = () => {
   const getRecipeList = () => {
     dispatch({ type: "FETCH_RECIPE_LIST" });
   };
+
+  const displayRecipe = (recipeToDisplay) => {
+    console.log(recipeToDisplay);
+    history.push(`/detail/${recipeToDisplay.recipeID}`)
+  }
 
   return (
     <div className="container">
@@ -28,6 +34,7 @@ const Library = () => {
               borderRadius: "10px",
               border: "2px solid gray",
             }}
+            onClick={() => displayRecipe(recipe)}
           >
             <h2>{recipe.recipeName}</h2>
             <h4>Ingredients:</h4>
