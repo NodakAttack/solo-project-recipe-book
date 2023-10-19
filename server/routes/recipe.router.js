@@ -10,7 +10,8 @@ router.get("/", (req, res) => {
   console.log("is authenticated?", req.isAuthenticated());
   if (req.isAuthenticated()) {
     console.log("user", req.user);
-    let queryText = `SELECT
+    let queryText = `
+    SELECT
     r."recipeID",
     r."name" AS "recipeName",
     r."course",
@@ -19,12 +20,9 @@ router.get("/", (req, res) => {
     r."picture" AS "recipePicture",
     r."isFavorite",
     r."isShared",
-    i."name" AS "ingredientName",
-    i."quantity",
-    i."unit",
-    s."description" AS "stepDescription",
-    s."order" AS "stepOrder",
-    n."description" AS "noteDescription"
+    array_agg(DISTINCT i."name") AS "ingredients",
+    array_agg(DISTINCT s."description") AS "steps",
+    array_agg(DISTINCT n."description") AS "notes"
 FROM
     "recipes" r
 LEFT JOIN
@@ -34,18 +32,18 @@ LEFT JOIN
 LEFT JOIN
     "notes" n ON r."recipeID" = n."recipeID"
 WHERE
-    r."userID" = $1;`;
-    // authorization
+    r."userID" = $1
+GROUP BY
+    r."recipeID", r."name", r."course", r."notes", r."rating", r."picture", r."isFavorite", r."isShared";
+    `;
+    
+    // authorization TODO
     let queryParams = [req.user.id];
-    // if(req.user.access_level > 0) {
-    //     // admins can see all recipes. TODO
-    //     queryText = `SELECT * FROM "recipes";`;
-    //     queryParams = [];
-    // }
     pool
       .query(queryText, queryParams)
       .then((result) => {
-        res.send(result.rows);
+        const recipes = result.rows;
+        res.send(recipes);
       })
       .catch((error) => {
         console.log(error);
@@ -55,6 +53,7 @@ WHERE
     res.sendStatus(401);
   }
 });
+
 
 /**
  * POST route template
