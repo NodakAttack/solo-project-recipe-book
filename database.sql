@@ -39,8 +39,16 @@ CREATE TABLE "steps" (
   "order" int
 );
 
+CREATE TABLE "notes" (
+  "noteID" SERIAL PRIMARY KEY,
+  "recipeID" int,
+  "description" text
+);
+
 ALTER TABLE "recipes" ADD FOREIGN KEY ("id") REFERENCES "user" ("id");
 
 ALTER TABLE "ingredients" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
 
 ALTER TABLE "steps" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
+
+ALTER TABLE "notes" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");

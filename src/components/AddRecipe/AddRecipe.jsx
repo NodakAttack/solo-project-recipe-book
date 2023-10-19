@@ -1,42 +1,92 @@
-import React, {useRef} from 'react';
-import { useState } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function AddRecipe() {
   const dispatch = useDispatch();
+  const recipeToAdd = useSelector((store) => store.recipeToAdd.recipeToAdd);
 
-  const recipeToAdd = useSelector((store) => store.recipeToAdd)
-
-  const [recipeName, setRecipeName] = useState("");
+  const nameInputRef = useRef(null);
   const ingredientInputRef = useRef(null);
+  const stepInputRef = useRef(null);
+  const noteInputRef = useRef(null);
 
-  const addRecipe = (e) => {
-    e.preventDefault();
-    dispatch({type: 'ADD_RECIPE', payload: { name: recipeName }})
+  const addName = () => {
+    dispatch({
+      type: "ADD_NAME",
+      payload: nameInputRef.current.value,
+    });
+    nameInputRef.current.value = ""; // Clear the input field
   };
 
   const addIngredient = () => {
-    dispatch({type: 'ADD_INGREDIENT', payload: ingredientInputRef.current.value})
-  }
+    dispatch({
+      type: "ADD_INGREDIENT",
+      payload: ingredientInputRef.current.value,
+    });
+    ingredientInputRef.current.value = ""; // Clear the input field
+  };
+
+  const addStep = () => {
+    dispatch({
+      type: "ADD_STEP",
+      payload: stepInputRef.current.value,
+    });
+    stepInputRef.current.value = ""; // Clear the input field
+  };
+
+  const addNote = () => {
+    dispatch({
+      type: "ADD_NOTE",
+      payload: noteInputRef.current.value,
+    });
+    noteInputRef.current.value = ""; // Clear the input field
+  };
+
+  const addRecipe = () => {
+    dispatch({
+      type: "ADD_RECIPE",
+      payload: recipeToAdd,
+    });
+    // Clear your recipeToAdd state or perform any other necessary actions. TODO
+  };
 
   return (
     <div className="container">
-      <h1>{recipeToAdd}</h1>
       <h2>Add a Recipe</h2>
-      <form onSubmit={addRecipe}>
-        Name:{" "}
-        <input
-          type="text"
-          value={recipeName}
-          onChange={(e) => setRecipeName(e.target.value)}
-        />
-        
-        <button>Submit</button>
-        <br />
+      Name: <input type="text" ref={nameInputRef} />
+      <button onClick={addName}>Set Name</button>
+      <br />
+      <h2>{recipeToAdd.name}</h2>
+      <br />
 
-        Ingredient: <input type="text" ref={ingredientInputRef} />
-        <button onClick={addIngredient}>Add Ingredient</button>
-      </form>
+      Ingredients:
+      <input type="text" ref={ingredientInputRef} />
+      <button onClick={addIngredient}>Add Ingredient</button>
+      <ul>
+        {recipeToAdd.ingredients.map((ingredient, index) => (
+          <li key={index}>{ingredient}</li>
+        ))}
+      </ul>
+
+      Cooking Steps:
+      <input type="text" ref={stepInputRef} />
+      <button onClick={addStep}>Add Step</button>
+      <ul>
+        {recipeToAdd.steps.map((step, index) => (
+          <li key={index}>{step}</li>
+        ))}
+      </ul>
+
+      Notes:
+      <input type="text" ref={noteInputRef} />
+      <button onClick={addNote}>Add Note</button>
+      <ul>
+        {recipeToAdd.notes.map((note, index) => (
+          <li key={index}>{note}</li>
+        ))}
+      </ul>
+
+      <button onClick={addRecipe}>Submit Recipe</button>
     </div>
   );
 }
