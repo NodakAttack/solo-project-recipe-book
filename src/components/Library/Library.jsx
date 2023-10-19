@@ -17,6 +17,7 @@ const Library = () => {
   return (
     <div className="container">
       <h2>Recipe List:</h2>
+      <h3>{JSON.stringify(recipeList)}</h3>
       <div>
         {recipeList.map((recipe) => (
           <div
