@@ -20,7 +20,7 @@ const Library = () => {
       <div>
         {recipeList.map((recipe) => (
           <div
-            key={recipe.id}
+            key={recipe.recipeID}
             style={{
               padding: "10px",
               margin: "10px",

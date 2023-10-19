@@ -1,5 +1,5 @@
-const express = require('express');
-const pool = require('../modules/pool');
+const express = require("express");
+const pool = require("../modules/pool");
 const router = express.Router();
 
 /**
@@ -10,7 +10,31 @@ router.get("/", (req, res) => {
   console.log("is authenticated?", req.isAuthenticated());
   if (req.isAuthenticated()) {
     console.log("user", req.user);
-    let queryText = `SELECT * FROM "recipes" WHERE "id" = $1;`;
+    let queryText = `SELECT
+    r."recipeID",
+    r."name" AS "recipeName",
+    r."course",
+    r."notes" AS "recipeNotes",
+    r."rating",
+    r."picture" AS "recipePicture",
+    r."isFavorite",
+    r."isShared",
+    i."name" AS "ingredientName",
+    i."quantity",
+    i."unit",
+    s."description" AS "stepDescription",
+    s."order" AS "stepOrder",
+    n."description" AS "noteDescription"
+FROM
+    "recipes" r
+LEFT JOIN
+    "ingredients" i ON r."recipeID" = i."recipeID"
+LEFT JOIN
+    "steps" s ON r."recipeID" = s."recipeID"
+LEFT JOIN
+    "notes" n ON r."recipeID" = n."recipeID"
+WHERE
+    r."id" = $1;`;
     // authorization
     let queryParams = [req.user.id];
     // if(req.user.access_level > 0) {
@@ -117,6 +141,5 @@ router.post("/", (req, res) => {
     res.sendStatus(401);
   }
 });
-
 
 module.exports = router;
