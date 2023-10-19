@@ -14,7 +14,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "recipes" (
   "recipeID" SERIAL PRIMARY KEY,
-  "id" int,
+  "userID" int,
   "name" varchar,
   "course" varchar,
   "notes" text,
@@ -45,7 +45,7 @@ CREATE TABLE "notes" (
   "description" text
 );
 
-ALTER TABLE "recipes" ADD FOREIGN KEY ("id") REFERENCES "user" ("id");
+ALTER TABLE "recipes" ADD FOREIGN KEY ("userID") REFERENCES "user" ("id");
 
 ALTER TABLE "ingredients" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
 

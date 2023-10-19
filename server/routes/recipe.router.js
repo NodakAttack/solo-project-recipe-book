@@ -34,7 +34,7 @@ LEFT JOIN
 LEFT JOIN
     "notes" n ON r."recipeID" = n."recipeID"
 WHERE
-    r."id" = $1;`;
+    r."userID" = $1;`;
     // authorization
     let queryParams = [req.user.id];
     // if(req.user.access_level > 0) {
@@ -81,7 +81,7 @@ router.post("/", (req, res) => {
             // Insert the recipe into the "recipes" table
             return client
               .query(
-                `INSERT INTO "recipes" ("name", "id") VALUES ($1, $2) RETURNING "recipeID"`,
+                `INSERT INTO "recipes" ("name", "userID") VALUES ($1, $2) RETURNING "recipeID"`,
                 [name, req.user.id]
               )
               .then((result) => {

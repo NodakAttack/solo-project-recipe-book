@@ -30,7 +30,7 @@ const Library = () => {
             }}
           >
             <h4>{recipe.name}</h4>
-            <p>User ID: {recipe.id}</p>
+            <p>User ID: {recipe.userID}</p>
           </div>
         ))}
       </div>
