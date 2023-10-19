@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import Library from '../Library/Library';
+import RecipeView from '../RecipeView/RecipeView';
 
 import './App.css';
 
@@ -67,6 +68,14 @@ function App() {
             path="/library"
           >
             <Library />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows RecipeView else shows LoginPage
+            exact
+            path="/detail/:recipeID"
+          >
+            <RecipeView />
           </ProtectedRoute>
 
           <ProtectedRoute

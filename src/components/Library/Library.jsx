@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Library = () => {
   const dispatch = useDispatch();
+  
   const recipeList = useSelector((store) => store.recipeList);
 
   useEffect(() => {
@@ -16,8 +17,7 @@ const Library = () => {
 
   return (
     <div className="container">
-      <h2>Recipe List:</h2>
-      <h3>{JSON.stringify(recipeList)}</h3>
+      <h1>---Recipe List---</h1>
       <div>
         {recipeList.map((recipe) => (
           <div
@@ -29,8 +29,13 @@ const Library = () => {
               border: "2px solid gray",
             }}
           >
-            <h4>{recipe.name}</h4>
-            <p>User ID: {recipe.userID}</p>
+            <h2>{recipe.recipeName}</h2>
+            <h4>Ingredients:</h4>
+            <ul>
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
