@@ -4,18 +4,19 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const RecipeView = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { recipeID } = useParams();
+  
+  useEffect(() => {
+    dispatch({ type: "FETCH_RECIPE_LIST" });
+  }, []);
+
   const recipe = useSelector((store) => store.recipeList[recipeID - 1]);
 
   // Check if the recipe exists
   if (!recipe) {
     return <div>Recipe not found</div>;
   }
-
-  useEffect(() => {
-    dispatch({ type: "FETCH_RECIPE_LIST" });
-  }, []);
 
   return (
     <div className="recipe-view">
