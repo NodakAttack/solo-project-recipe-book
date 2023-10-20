@@ -18,8 +18,14 @@ const Library = () => {
 
   const displayRecipe = (recipeToDisplay) => {
     console.log(recipeToDisplay);
-    history.push(`/detail/${recipeToDisplay.recipeID}`)
-  }
+    history.push(`/detail/${recipeToDisplay.recipeID}`);
+  };
+
+  const deleteRecipe = (recipeID) => {
+    if (window.confirm("Are you sure you want to delete this recipe?")) {
+      dispatch({ type: "DELETE_RECIPE", payload: { recipeId: recipeID } });
+    }
+  };
 
   return (
     <div className="container">
@@ -36,7 +42,15 @@ const Library = () => {
             }}
             onClick={() => displayRecipe(recipe)}
           >
-            <h2>{recipe.recipeName}</h2>
+            <h2>
+              {recipe.recipeName}{" "}
+              <button
+                style={{ float: "right" }}
+                onClick={() => deleteRecipe(recipe.recipeID)}
+              >
+                Delete Recipe
+              </button>
+            </h2>
             <h4>Ingredients:</h4>
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
