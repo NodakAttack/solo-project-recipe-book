@@ -46,7 +46,7 @@ GROUP BY
         res.send(recipes);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(`error in /get ${queryText}`, error);
         res.sendStatus(500);
       });
   } else {
@@ -140,5 +140,48 @@ router.post("/", (req, res) => {
     res.sendStatus(401);
   }
 });
+
+/**
+ * DELETE route template
+ */
+router.delete('/:id', async (req, res) => { 
+  const recipeID = req.params.id;
+
+  // Check if the user is authenticated
+  if (req.isAuthenticated()) {
+    const client = await pool.connect();
+
+    try {
+      // Begin a transaction
+      await client.query("BEGIN");
+
+      // Delete related records in other tables
+      await client.query('DELETE FROM ingredients WHERE "recipeID" = $1', [recipeID]);
+      await client.query('DELETE FROM steps WHERE "recipeID" = $1', [recipeID]);
+      await client.query('DELETE FROM notes WHERE "recipeID" = $1', [recipeID]);
+
+      // Delete the recipe in the "recipes" table
+      await client.query('DELETE FROM recipes WHERE "recipeID" = $1', [recipeID]);
+
+      // Commit the transaction
+      await client.query("COMMIT");
+    } catch (error) {
+      // Rollback the transaction on error
+      await client.query("ROLLBACK");
+      console.error("Error deleting recipe:", error);
+      res.sendStatus(500); // Internal server error
+    } finally {
+      client.release();
+    }
+
+    res.sendStatus(204); // Recipe deleted successfully
+  } else {
+    res.sendStatus(401); // Unauthorized
+  }
+});
+
+
+
+
 
 module.exports = router;

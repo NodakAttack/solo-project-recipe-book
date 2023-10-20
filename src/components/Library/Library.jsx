@@ -40,17 +40,19 @@ const Library = () => {
               borderRadius: "10px",
               border: "2px solid gray",
             }}
-            onClick={() => displayRecipe(recipe)}
           >
-            <h2>
+            <h2
+              style={{ background: "lightblue" }}
+              onClick={() => displayRecipe(recipe)}
+            >
               {recipe.recipeName}{" "}
-              <button
-                style={{ float: "right" }}
-                onClick={() => deleteRecipe(recipe.recipeID)}
-              >
-                Delete Recipe
-              </button>
             </h2>
+            <button
+              style={{ float: "right" }}
+              onClick={() => deleteRecipe(recipe.recipeID)}
+            >
+              Delete Recipe
+            </button>
             <h4>Ingredients:</h4>
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
