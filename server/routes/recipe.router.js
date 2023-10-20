@@ -171,6 +171,9 @@ router.delete('/:id', async (req, res) => {
       console.error("Error deleting recipe:", error);
       res.sendStatus(500); // Internal server error
     } finally {
+      // always runs - both after successful try and after a catch
+      // put the client connection back in pool
+      // This is SUPER IMPORTANT
       client.release();
     }
 

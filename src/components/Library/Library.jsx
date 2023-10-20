@@ -18,7 +18,7 @@ const Library = () => {
 
   const displayRecipe = (recipeToDisplay) => {
     console.log(recipeToDisplay);
-    history.push(`/detail/${recipeToDisplay.recipeID}`);
+    history.push(`/detail/${recipeToDisplay}`);
   };
 
   const deleteRecipe = (recipeID) => {
@@ -43,7 +43,7 @@ const Library = () => {
           >
             <h2
               style={{ background: "lightblue" }}
-              onClick={() => displayRecipe(recipe)}
+              onClick={() => displayRecipe(recipe.recipeID)}
             >
               {recipe.recipeName}{" "}
             </h2>

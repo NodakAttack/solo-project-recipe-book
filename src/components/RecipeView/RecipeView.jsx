@@ -6,12 +6,13 @@ import { useEffect } from "react";
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
-  
+
   useEffect(() => {
     dispatch({ type: "FETCH_RECIPE_LIST" });
   }, []);
 
-  const recipe = useSelector((store) => store.recipeList[recipeID - 1]);
+  const recipeList = useSelector((store) => store.recipeList);
+  const recipe = recipeList.find((r) => r.recipeID === Number(recipeID));
 
   // Check if the recipe exists
   if (!recipe) {
