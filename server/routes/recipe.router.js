@@ -15,37 +15,47 @@ router.get("/", (req, res) => {
     console.log("searchTerm", searchTerm);
 
     let queryText = `
+      WITH matched_recipes AS (
+        SELECT
+          r."recipeID"
+        FROM
+          "recipes" r
+        WHERE
+          r."userID" = $1
+          AND (
+            r."name" ILIKE $2
+            OR EXISTS (SELECT 1 FROM "ingredients" i WHERE i."recipeID" = r."recipeID" AND i."name" ILIKE $2)
+            OR EXISTS (SELECT 1 FROM "steps" s WHERE s."recipeID" = r."recipeID" AND s."description" ILIKE $2)
+            OR EXISTS (SELECT 1 FROM "notes" n WHERE n."recipeID" = r."recipeID" AND n."description" ILIKE $2)
+          )
+      )
       SELECT
-      r."recipeID",
-      r."name" AS "recipeName",
-      r."course",
-      r."notes" AS "recipeNotes",
-      r."rating",
-      r."picture" AS "recipePicture",
-      r."isFavorite",
-      r."isShared",
-      array_agg(DISTINCT i."name") AS "ingredients",
-      array_agg(DISTINCT s."description") AS "steps",
-      array_agg(DISTINCT n."description") AS "notes"
-    FROM
-      "recipes" r
-    LEFT JOIN
-      "ingredients" i ON r."recipeID" = i."recipeID"
-    LEFT JOIN
-      "steps" s ON r."recipeID" = s."recipeID"
-    LEFT JOIN
-      "notes" n ON r."recipeID" = n."recipeID"
-    WHERE
-      r."userID" = $1
-      ${searchTerm ? `AND r."name" ILIKE $2` : ""}
-    GROUP BY
-      r."recipeID", r."name", r."course", r."notes", r."rating", r."picture", r."isFavorite", r."isShared";
+        r."recipeID",
+        r."name" AS "recipeName",
+        r."course",
+        r."notes" AS "recipeNotes",
+        r."rating",
+        r."picture" AS "recipePicture",
+        r."isFavorite",
+        r."isShared",
+        array_agg(DISTINCT i."name") AS "ingredients",
+        array_agg(DISTINCT s."description") AS "steps",
+        array_agg(DISTINCT n."description") AS "notes"
+      FROM
+        matched_recipes m
+      JOIN
+        "recipes" r ON m."recipeID" = r."recipeID"
+      LEFT JOIN
+        "ingredients" i ON r."recipeID" = i."recipeID"
+      LEFT JOIN
+        "steps" s ON r."recipeID" = s."recipeID"
+      LEFT JOIN
+        "notes" n ON r."recipeID" = n."recipeID"
+      GROUP BY
+        r."recipeID", r."name", r."course", r."notes", r."rating", r."picture", r."isFavorite", r."isShared";
     `;
 
-    let queryParams = [req.user.id];
-    if (searchTerm) {
-      queryParams.push(`%${searchTerm}%`);
-    }
+    let queryParams = [req.user.id, `%${searchTerm}%`];
 
     pool
       .query(queryText, queryParams)
@@ -61,11 +71,6 @@ router.get("/", (req, res) => {
     res.sendStatus(401);
   }
 });
-
-
-
-
-
 
 
 /**
