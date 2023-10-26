@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -7,13 +7,20 @@ const Library = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const recipeList = useSelector((store) => store.recipeList);
+  const searchResults = useSelector((store) => store.searchResults);
+
+  const searchInputRef = useRef(null);
+
+  const handleSearch = () => {
+    dispatch({ type: "FETCH_RECIPE_LIST", payload: searchInputRef.current.value});
+  };
 
   useEffect(() => {
     getRecipeList();
   }, []);
 
   const getRecipeList = () => {
-    dispatch({ type: "FETCH_RECIPE_LIST" });
+    dispatch({ type: "FETCH_RECIPE_LIST", payload: "" });
   };
 
   const displayRecipe = (recipeToDisplay) => {
@@ -31,6 +38,15 @@ const Library = () => {
     <div className="container">
       <h1>---Recipe List---</h1>
       <div>
+      <div>
+      <input
+            type="text"
+            placeholder="Search recipes"
+            ref={searchInputRef}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+
         {recipeList.map((recipe) => (
           <div
             key={recipe.recipeID}

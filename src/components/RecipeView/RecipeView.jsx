@@ -8,7 +8,7 @@ const RecipeView = () => {
   const { recipeID } = useParams();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_RECIPE_LIST" });
+    dispatch({ type: "FETCH_RECIPE_LIST", payload: "" });
   }, []);
 
   const recipeList = useSelector((store) => store.recipeList);

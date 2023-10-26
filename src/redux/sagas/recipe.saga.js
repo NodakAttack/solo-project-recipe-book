@@ -1,16 +1,17 @@
 import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
-function* getRecipeList() {
+function* getRecipeList(action) {
     try {
-      let response = yield axios.get("/api/recipe");
-      // pass to the reducer
+      const searchTerm = action.payload;
+      let response = yield axios.get(`/api/recipe?searchTerm=${searchTerm}`);
       yield put({ type: "SET_RECIPE_LIST", payload: response.data });
     } catch (error) {
       console.log("ERROR in getRecipeList", error);
       alert("Something went wrong!");
     }
   }
+
 
 function* addRecipe(action) {
     try{
