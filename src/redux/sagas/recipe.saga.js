@@ -16,7 +16,7 @@ function* getRecipeList(action) {
 function* addRecipe(action) {
     try{
         yield axios.post('/api/recipe', action.payload)
-        yield put({type: 'FETCH_RECIPE_LIST'})
+        yield put({type: 'FETCH_RECIPE_LIST', payload: ''})
     } catch (error) {
         console.log("ERROR in addRecipe", error);
         alert("Something went wrong!");
@@ -26,12 +26,13 @@ function* addRecipe(action) {
 function* deleteRecipe(action) {
   try {
     yield axios.delete(`/api/recipe/${action.payload.recipeId}`);
-    yield put({ type: 'FETCH_RECIPE_LIST' });
+    yield put({ type: 'FETCH_RECIPE_LIST', payload: '' });
   } catch (error) {
     console.log("ERROR in deleteRecipe", error);
     alert("Something went wrong!");
   }
 }
+
 
 function* recipeSaga(){
     yield takeLatest('FETCH_RECIPE_LIST', getRecipeList);

@@ -19,6 +19,8 @@ const RecipeView = () => {
     return <div>Recipe not found</div>;
   }
 
+  
+
   return (
     <div className="recipe-view">
       <h2 className="recipe-name">
@@ -32,7 +34,7 @@ const RecipeView = () => {
           {recipe.ingredients.map((ingredient, index) => (
             <li key={index}>
               {ingredient}
-              <button className="delete-button">X</button>
+              <button onClick={() => dispatch({ type: "DELETE_INGREDIENT", payload: index })} className="delete-button">X</button>
               <button className="edit-button">Edit</button>
             </li>
           ))}
