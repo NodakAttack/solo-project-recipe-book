@@ -10,7 +10,12 @@ const RecipeView = () => {
     dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
   }, [dispatch, recipeID]);
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_INGREDIENTS", payload: recipeID });
+  }, [dispatch, recipeID]);
+
   const recipe = useSelector((store) => store.selectedRecipe);
+  const ingredients = useSelector((store) => store.ingredients);
 
   // Check if the recipe exists
   if (!recipe) {
@@ -29,10 +34,10 @@ const RecipeView = () => {
       <div className="recipe-section">
         <h3>Ingredients</h3>
         <ul>
-          {recipe.ingredients.map((ingredient, index) => (
+          {ingredients.map((ingredient, index) => (
             <li key={index}>
-              {ingredient}
-              <button onClick={() => dispatch({ type: "DELETE_INGREDIENT", payload: index })} className="delete-button">X</button>
+              {ingredient.ingredientName} {/* Update this to match your ingredient data structure */}
+              <button onClick={() => handleDeleteIngredient(ingredient.ingredientID)} className="delete-button">X</button>
               <button className="edit-button">Edit</button>
             </li>
           ))}
