@@ -72,9 +72,66 @@ router.get("/", (req, res) => {
   }
 });
 
+/**
+ * GET route, recipe by ID
+ */
+
+router.get("/:recipeID", (req, res) => {
+  if (req.isAuthenticated()) {
+    const recipeID = req.params.recipeID;
+
+    let queryText = `
+      SELECT
+        r."recipeID",
+        r."name" AS "recipeName",
+        r."course",
+        r."notes" AS "recipeNotes",
+        r."rating",
+        r."picture" AS "recipePicture",
+        r."isFavorite",
+        r."isShared",
+        array_agg(DISTINCT i."name") AS "ingredients",
+        array_agg(DISTINCT s."description") AS "steps",
+        array_agg(DISTINCT n."description") AS "notes"
+      FROM
+        "recipes" r
+      LEFT JOIN
+        "ingredients" i ON r."recipeID" = i."recipeID"
+      LEFT JOIN
+        "steps" s ON r."recipeID" = s."recipeID"
+      LEFT JOIN
+        "notes" n ON r."recipeID" = n."recipeID"
+      WHERE
+        r."recipeID" = $1
+      GROUP BY
+        r."recipeID", r."name", r."course", r."notes", r."rating", r."picture", r."isFavorite", r."isShared";
+    `;
+
+    let queryParams = [recipeID];
+
+    pool
+      .query(queryText, queryParams)
+      .then((result) => {
+        if (result.rows.length === 0) {
+          res.status(404).json({ message: 'Recipe not found' });
+        } else {
+          const recipe = result.rows[0];
+          res.json(recipe);
+        }
+      })
+      .catch((error) => {
+        console.error(`Error in GET /recipe/${recipeID}:`, error);
+        res.status(500).json({ message: 'Internal server error' });
+      });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
+
+
 
 /**
- * POST route template
+ * POST route
  */
 router.post("/", (req, res) => {
   console.log("/recipe POST route");

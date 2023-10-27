@@ -12,6 +12,19 @@ function* getRecipeList(action) {
     }
   }
 
+  function* getRecipeByID(action) {
+    try {
+      const recipeID = action.payload;
+      const response = yield axios.get(`/api/recipe/${recipeID}`);
+  
+      yield put({ type: 'SET_SELECTED_RECIPE', payload: response.data });
+  
+    } catch (error) {
+      console.log('ERROR in getRecipeByID', error);
+      alert('Something went wrong!');
+    }
+  }
+
 
 function* addRecipe(action) {
     try{
@@ -36,6 +49,7 @@ function* deleteRecipe(action) {
 
 function* recipeSaga(){
     yield takeLatest('FETCH_RECIPE_LIST', getRecipeList);
+    yield takeLatest('FETCH_SELECTED_RECIPE', getRecipeByID);
     yield takeLatest('ADD_RECIPE', addRecipe);
     yield takeLatest('DELETE_RECIPE', deleteRecipe);
 }

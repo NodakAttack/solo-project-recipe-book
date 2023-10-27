@@ -1,18 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
 
   useEffect(() => {
-    dispatch({ type: "FETCH_RECIPE_LIST", payload: "" });
-  }, []);
+    dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
+  }, [dispatch, recipeID]);
 
-  const recipeList = useSelector((store) => store.recipeList);
-  const recipe = recipeList.find((r) => r.recipeID === Number(recipeID));
+  const recipe = useSelector((store) => store.selectedRecipe);
 
   // Check if the recipe exists
   if (!recipe) {
