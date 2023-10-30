@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -8,6 +8,8 @@ const RecipeView = () => {
   const addIngredientInputRef = useRef(null);
   const addStepInputRef = useRef(null);
   const addNoteInputRef = useRef(null);
+
+  const [selectedNote, setSelectedNote] = useState(null);
 
   useEffect(() => {
     // Fetch selected recipe, ingredients, steps, and notes
@@ -70,6 +72,17 @@ const RecipeView = () => {
   const handleDeleteNote = (noteID) => {
     dispatch({ type: "DELETE_NOTE", payload: { recipeID, noteID } });
   };
+
+  const handleEditNote = (note) => {
+    setSelectedNote(note);
+    const editedNote = prompt("Edit Note", note.noteDescription);
+    if (editedNote !== null) {
+      dispatch({
+        type: "EDIT_NOTE",
+        payload: { recipeID, noteID: note.noteID, noteDescription: editedNote },
+      });
+    }
+  };
   
 
   return (
@@ -114,6 +127,7 @@ const RecipeView = () => {
           {notes.map((note, index) => (
             <li key={index}>
               {note.noteDescription}
+              <button onClick={() => handleEditNote(note)} className="edit-button">Edit</button>
               <button onClick={() => handleDeleteNote(note.noteID)} className="delete-button">X</button>
               
             </li>

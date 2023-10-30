@@ -84,4 +84,33 @@ router.delete("/:recipeID/:noteID", (req, res) => {
   }
 });
 
+// Edit Note
+router.put("/:recipeID/:noteID", (req, res) => {
+  if (req.isAuthenticated()) {
+    const recipeID = req.params.recipeID;
+    const noteID = req.params.noteID;
+    const { noteDescription } = req.body;
+
+    let queryText = `
+      UPDATE "notes"
+      SET "description" = $1
+      WHERE "recipeID" = $2 AND "noteID" = $3
+    `;
+
+    let queryParams = [noteDescription, recipeID, noteID];
+
+    pool
+      .query(queryText, queryParams)
+      .then(() => {
+        res.sendStatus(204); // No content - successful update
+      })
+      .catch((error) => {
+        console.error(`Error in PUT /notes/${recipeID}/${noteID}:`, error);
+        res.status(500).json({ message: 'Internal server error' });
+      });
+  } else {
+    res.status(401).json({ message: 'Unauthorized' });
+  }
+});
+
 module.exports = router;

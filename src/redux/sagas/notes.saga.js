@@ -37,10 +37,23 @@ function* getNotes(action) {
   }
 }
 
+// Function to edit a note
+function* editNote(action) {
+  try {
+    const { recipeID, noteID, noteDescription } = action.payload;
+    yield call(axios.put, `/api/notes/${recipeID}/${noteID}`, { noteDescription });
+    yield put({ type: "FETCH_NOTES", payload: recipeID }); // Refresh the notes after editing
+  } catch (error) {
+    console.log("ERROR in editNote", error);
+    alert("Failed to edit note.");
+  }
+}
+
 function* notesSaga() {
   yield takeLatest("FETCH_NOTES", getNotes);
   yield takeLatest("ADD_NOTE", addNote); // Listen for adding note
   yield takeLatest("DELETE_NOTE", deleteNote); // Listen for deleting note
+  yield takeLatest("EDIT_NOTE", editNote); // Listen for editing note
 }
 
 export default notesSaga;
