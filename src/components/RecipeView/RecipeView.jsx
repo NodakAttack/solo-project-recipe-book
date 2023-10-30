@@ -9,8 +9,6 @@ const RecipeView = () => {
   const addStepInputRef = useRef(null);
   const addNoteInputRef = useRef(null);
 
-  const [selectedNote, setSelectedNote] = useState(null);
-
   useEffect(() => {
     // Fetch selected recipe, ingredients, steps, and notes
     dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
@@ -59,6 +57,16 @@ const RecipeView = () => {
     dispatch({ type: "DELETE_STEP", payload: { recipeID, stepID } });
   };
 
+  const handleEditStep = (step) => {
+    const editedStep = prompt("Edit Step", step.stepDescription);
+    if (editedStep !== null) {
+      dispatch({
+        type: "EDIT_STEP",
+        payload: { recipeID, stepID: step.stepID, stepDescription: editedStep },
+      });
+    }
+  };
+
   const handleAddNote = () => {
     if (addNoteInputRef.current && addNoteInputRef.current.value.trim() !== "") {
       dispatch({
@@ -74,7 +82,6 @@ const RecipeView = () => {
   };
 
   const handleEditNote = (note) => {
-    setSelectedNote(note);
     const editedNote = prompt("Edit Note", note.noteDescription);
     if (editedNote !== null) {
       dispatch({
@@ -113,6 +120,7 @@ const RecipeView = () => {
           {steps.map((step, index) => (
             <li key={index}>
               {step.stepDescription}
+              <button onClick={() => handleEditStep(step)} className="edit-button">Edit</button>
               <button onClick={() => handleDeleteStep(step.stepID)} className="delete-button">X</button>
               
             </li>

@@ -37,10 +37,23 @@ function* getSteps(action) {
   }
 }
 
+// Function to edit a step
+function* editStep(action) {
+  try {
+    const { recipeID, stepID, stepDescription } = action.payload;
+    yield call(axios.put, `/api/steps/${recipeID}/${stepID}`, { stepDescription });
+    yield put({ type: "FETCH_STEPS", payload: recipeID }); // Refresh the notes after editing
+  } catch (error) {
+    console.log("ERROR in editSteps", error);
+    alert("Failed to edit step.");
+  }
+}
+
 function* stepsSaga() {
   yield takeLatest("FETCH_STEPS", getSteps);
   yield takeLatest("ADD_STEP", addStep); // Listen for adding step
   yield takeLatest("DELETE_STEP", deleteStep); // Listen for deleting step
+  yield takeLatest("EDIT_STEP", editStep);
 }
 
 export default stepsSaga;
