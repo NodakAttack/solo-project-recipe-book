@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
-  const addInputRef = useRef(null);
+  const addIngredientInputRef = useRef(null);
+  const addStepInputRef = useRef(null);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
@@ -15,8 +16,13 @@ const RecipeView = () => {
     dispatch({ type: "FETCH_INGREDIENTS", payload: recipeID });
   }, [dispatch, recipeID]);
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_STEPS", payload: recipeID });
+  }, [dispatch, recipeID]);
+
   const recipe = useSelector((store) => store.selectedRecipe);
   const ingredients = useSelector((store) => store.ingredients);
+  const steps = useSelector((store) => store.steps)
 
   // Check if the recipe exists
   if (!recipe) {
@@ -24,18 +30,33 @@ const RecipeView = () => {
   }
 
   const handleAddIngredient = () => {
-    if (addInputRef.current && addInputRef.current.value.trim() !== "") {
+    if (addIngredientInputRef.current && addIngredientInputRef.current.value.trim() !== "") {
       dispatch({
         type: "ADD_INGREDIENT",
-        payload: { recipeID, ingredientName: addInputRef.current.value },
+        payload: { recipeID, ingredientName: addIngredientInputRef.current.value },
       });
-      addInputRef.current.value = ""; // Clear the input field
+      addIngredientInputRef.current.value = ""; // Clear the input field
     }
   };
   
 
   const handleDeleteIngredient = (ingredientID) => {
     dispatch({ type: "DELETE_INGREDIENT", payload: { recipeID, ingredientID } });
+  };
+
+  const handleAddStep = () => {
+    if (addStepInputRef.current && addStepInputRef.current.value.trim() !== "") {
+      dispatch({
+        type: "ADD_STEP",
+        payload: { recipeID, stepDescription: addStepInputRef.current.value },
+      });
+      addStepInputRef.current.value = ""; // Clear the input field
+    }
+  };
+  
+
+  const handleDeleteStep = (stepID) => {
+    dispatch({ type: "DELETE_STEP", payload: { recipeID, stepID } });
   };
 
   
@@ -49,7 +70,7 @@ const RecipeView = () => {
 
       <div className="recipe-section">
         <h3>Ingredients</h3>
-        <input placeholder="Ingredient" type="text" ref={addInputRef} /><button className="add-button" onClick={handleAddIngredient}>Add</button>
+        <input placeholder="Ingredient" type="text" ref={addIngredientInputRef} /><button className="add-button" onClick={handleAddIngredient}>Add</button>
         <ul>
           {ingredients.map((ingredient, index) => (
             <li key={index}>
@@ -63,12 +84,13 @@ const RecipeView = () => {
 
       <div className="recipe-section">
         <h3>Steps</h3>
+        <input placeholder="Steps" type="text" ref={addStepInputRef} /><button className="add-button" onClick={handleAddStep}>Add</button>
         <ol>
-          {recipe.steps.map((step, index) => (
+          {steps.map((step, index) => (
             <li key={index}>
-              {step}
-              <button className="delete-button">X</button>
-              <button className="edit-button">Edit</button>
+              {step.stepDescription}
+              <button onClick={() => handleDeleteStep(step.stepID)} className="delete-button">X</button>
+              
             </li>
           ))}
         </ol>
