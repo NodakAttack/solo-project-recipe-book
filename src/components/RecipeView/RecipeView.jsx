@@ -10,20 +10,13 @@ const RecipeView = () => {
   const addNoteInputRef = useRef(null);
 
   useEffect(() => {
+    // Fetch selected recipe, ingredients, steps, and notes
     dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
-  }, [dispatch, recipeID]);
-
-  useEffect(() => {
     dispatch({ type: "FETCH_INGREDIENTS", payload: recipeID });
-  }, [dispatch, recipeID]);
-
-  useEffect(() => {
     dispatch({ type: "FETCH_STEPS", payload: recipeID });
-  }, [dispatch, recipeID]);
-
-  useEffect(() => {
     dispatch({ type: "FETCH_NOTES", payload: recipeID });
   }, [dispatch, recipeID]);
+  
 
   const recipe = useSelector((store) => store.selectedRecipe);
   const ingredients = useSelector((store) => store.ingredients);
