@@ -7,6 +7,7 @@ const RecipeView = () => {
   const { recipeID } = useParams();
   const addIngredientInputRef = useRef(null);
   const addStepInputRef = useRef(null);
+  const addNoteInputRef = useRef(null);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
@@ -20,9 +21,14 @@ const RecipeView = () => {
     dispatch({ type: "FETCH_STEPS", payload: recipeID });
   }, [dispatch, recipeID]);
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_NOTES", payload: recipeID });
+  }, [dispatch, recipeID]);
+
   const recipe = useSelector((store) => store.selectedRecipe);
   const ingredients = useSelector((store) => store.ingredients);
-  const steps = useSelector((store) => store.steps)
+  const steps = useSelector((store) => store.steps);
+  const notes = useSelector((store) => store.notes);
 
   // Check if the recipe exists
   if (!recipe) {
@@ -54,11 +60,23 @@ const RecipeView = () => {
     }
   };
   
-
   const handleDeleteStep = (stepID) => {
     dispatch({ type: "DELETE_STEP", payload: { recipeID, stepID } });
   };
 
+  const handleAddNote = () => {
+    if (addNoteInputRef.current && addNoteInputRef.current.value.trim() !== "") {
+      dispatch({
+        type: "ADD_NOTE",
+        payload: { recipeID, noteDescription: addNoteInputRef.current.value },
+      });
+      addNoteInputRef.current.value = ""; // Clear the input field
+    }
+  };
+  
+  const handleDeleteNote = (noteID) => {
+    dispatch({ type: "DELETE_NOTE", payload: { recipeID, noteID } });
+  };
   
 
   return (
@@ -98,12 +116,13 @@ const RecipeView = () => {
 
       <div className="recipe-section">
         <h3>Notes</h3>
+        <input placeholder="Notes" type="text" ref={addNoteInputRef} /><button className="add-button" onClick={handleAddNote}>Add</button>
         <ul>
-          {recipe.notes.map((note, index) => (
+          {notes.map((note, index) => (
             <li key={index}>
-              {note}
-              <button className="delete-button">X</button>
-              <button className="edit-button">Edit</button>
+              {note.noteDescription}
+              <button onClick={() => handleDeleteNote(note.noteID)} className="delete-button">X</button>
+              
             </li>
           ))}
         </ul>
