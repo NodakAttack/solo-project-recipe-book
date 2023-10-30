@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import AddImage from "../AddImage/AddImage";
+
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
@@ -100,6 +102,7 @@ const RecipeView = () => {
       </h2>
 
       <div className="recipe-section">
+        <AddImage recipeID={recipeID}/>
         <h3>Ingredients</h3>
         <input placeholder="Ingredient" type="text" ref={addIngredientInputRef} /><button className="add-button" onClick={handleAddIngredient}>Add</button>
         <ul>

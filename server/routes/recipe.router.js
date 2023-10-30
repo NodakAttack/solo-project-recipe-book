@@ -259,6 +259,36 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// POST route to update a recipe's picture URL
+router.post("/picture/:recipeID", (req, res) => {
+  if (req.isAuthenticated()) {
+    
+    const recipeID = req.params.recipeID;
+    const pictureURL = req.body.path;
+    console.log("recipeID", recipeID, "pictureURL=", pictureURL);
+
+    const queryText = `
+      UPDATE "recipes"
+      SET "picture" = $1
+      WHERE "recipeID" = $2
+      AND "userID" = $3;
+    `;
+
+    const queryParams = [pictureURL, recipeID, req.user.id];
+
+    pool
+      .query(queryText, queryParams)
+      .then(() => {
+        res.sendStatus(204); // No content - successful update
+      })
+      .catch((error) => {
+        console.error(`Error in POST /recipe/picture/${recipeID}:`, error);
+        res.sendStatus(500);
+      });
+  } else {
+    res.sendStatus(401);
+  }
+});
 
 
 
