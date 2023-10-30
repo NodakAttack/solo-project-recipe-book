@@ -265,7 +265,6 @@ router.post("/picture/:recipeID", (req, res) => {
     
     const recipeID = req.params.recipeID;
     const pictureURL = req.body.path;
-    console.log("recipeID", recipeID, "pictureURL=", pictureURL);
 
     const queryText = `
       UPDATE "recipes"

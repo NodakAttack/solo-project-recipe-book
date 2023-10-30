@@ -20,7 +20,6 @@ const AddImage = ({recipeID}) => {
         const response = await axios.post(postUrl, formData);
         // Make sure the state is updated correctly
         setImagePath(response.data.url);
-        console.log("imageURL=",response.data.url)
       } catch (error) {
         console.log('Error:', error);
         alert('Something went wrong');
