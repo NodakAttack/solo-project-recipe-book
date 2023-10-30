@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
+  const addInputRef = useRef(null);
 
   useEffect(() => {
     dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
@@ -22,6 +23,21 @@ const RecipeView = () => {
     return <div>Recipe not found</div>;
   }
 
+  const handleAddIngredient = () => {
+    if (addInputRef.current && addInputRef.current.value.trim() !== "") {
+      dispatch({
+        type: "ADD_INGREDIENT",
+        payload: { recipeID, ingredientName: addInputRef.current.value },
+      });
+      addInputRef.current.value = ""; // Clear the input field
+    }
+  };
+  
+
+  const handleDeleteIngredient = (ingredientID) => {
+    dispatch({ type: "DELETE_INGREDIENT", payload: { recipeID, ingredientID } });
+  };
+
   
 
   return (
@@ -33,12 +49,13 @@ const RecipeView = () => {
 
       <div className="recipe-section">
         <h3>Ingredients</h3>
+        <input placeholder="Ingredient" type="text" ref={addInputRef} /><button className="add-button" onClick={handleAddIngredient}>Add</button>
         <ul>
           {ingredients.map((ingredient, index) => (
             <li key={index}>
-              {ingredient.ingredientName} {/* Update this to match your ingredient data structure */}
+              {ingredient.ingredientName}
               <button onClick={() => handleDeleteIngredient(ingredient.ingredientID)} className="delete-button">X</button>
-              <button className="edit-button">Edit</button>
+              
             </li>
           ))}
         </ul>

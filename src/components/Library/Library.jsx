@@ -7,7 +7,6 @@ const Library = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const recipeList = useSelector((store) => store.recipeList);
-  const searchResults = useSelector((store) => store.searchResults);
 
   const searchInputRef = useRef(null);
 
