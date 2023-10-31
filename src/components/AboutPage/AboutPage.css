@@ -1,0 +1,18 @@
+.container {
+  text-align: center;
+}
+
+
+
+.tech-list {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.tech-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
