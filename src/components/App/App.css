@@ -2,6 +2,14 @@ html,
 body,
 #react-root {
   height: 100%;
+  padding: 20px;
+  background-image: url("/public/salad.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: #ffffff;
+  padding: 20px;
 }
 
 body {
@@ -14,13 +22,11 @@ img {
   max-width: 100%;
 }
 
+
 /* --------------------------------------------------------------------------------
 Container
 -------------------------------------------------------------------------------- */
 
-.container {
-  padding: 20px;
-}
 
 /* --------------------------------------------------------------------------------
 Button
