@@ -2,6 +2,15 @@ import React, { useRef } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Button,
+  Input,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Library = () => {
   const dispatch = useDispatch();
@@ -11,7 +20,7 @@ const Library = () => {
   const searchInputRef = useRef(null);
 
   const handleSearch = () => {
-    dispatch({ type: "FETCH_RECIPE_LIST", payload: searchInputRef.current.value});
+    dispatch({ type: "FETCH_RECIPE_LIST", payload: searchInputRef.current.value });
   };
 
   useEffect(() => {
@@ -37,44 +46,44 @@ const Library = () => {
     <div className="container">
       <h1>---Recipe List---</h1>
       <div>
-      <div>
-      <input
+        <div>
+          <Input
             type="text"
             placeholder="Search recipes"
-            ref={searchInputRef}
+            inputRef={searchInputRef}
           />
-          <button onClick={handleSearch}>Search</button>
+          <Button variant="contained" onClick={handleSearch}>
+            Search
+          </Button>
         </div>
 
         {recipeList.map((recipe) => (
-          <div
-            key={recipe.recipeID}
-            style={{
-              padding: "10px",
-              margin: "10px",
-              borderRadius: "10px",
-              border: "2px solid gray",
-            }}
-          >
-            <h2
-              style={{ background: "lightblue" }}
-              onClick={() => displayRecipe(recipe.recipeID)}
-            >
-              {recipe.recipeName}{" "}
-            </h2>
-            <button
-              style={{ float: "right" }}
-              onClick={() => deleteRecipe(recipe.recipeID)}
-            >
-              Delete Recipe
-            </button>
-            <h4>Ingredients:</h4>
-            <ul>
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </div>
+          <Accordion key={recipe.recipeID}>
+  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+    <div>
+      <Typography variant="h6" onClick={() => displayRecipe(recipe.recipeID)}>
+        {recipe.recipeName}
+      </Typography>
+    </div>
+  </AccordionSummary>
+  <AccordionDetails>
+    <div>
+      <Typography variant="h4">Ingredients:</Typography>
+      <ul>
+        {recipe.ingredients.map((ingredient, index) => (
+          <li key={index}>{ingredient}</li>
+        ))}
+      </ul>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => deleteRecipe(recipe.recipeID)}
+      >
+        Delete Recipe
+      </Button>
+    </div>
+  </AccordionDetails>
+</Accordion>
         ))}
       </div>
     </div>
