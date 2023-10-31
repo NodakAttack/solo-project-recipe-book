@@ -5,6 +5,7 @@
   
   .recipe-details-content {
     flex: 1;
+    text-align: left;
   }
   
   .recipe-image {
