@@ -71,8 +71,9 @@ const Library = () => {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <div>
                 <Typography
-                  variant="h6"
+                  variant="h4"
                   onClick={() => displayRecipe(recipe.recipeID)}
+                  className="recipe-name"
                 >
                   {recipe.recipeName}
                 </Typography>
@@ -81,7 +82,7 @@ const Library = () => {
             <AccordionDetails>
               <div className="recipe-details">
                 <div className="recipe-details-content">
-                  <Typography variant="h4">Ingredients:</Typography>
+                  <Typography variant="h6">Ingredients:</Typography>
                   <ul>
                     {recipe.ingredients.map((ingredient, index) => (
                       <li key={index}>{ingredient}</li>

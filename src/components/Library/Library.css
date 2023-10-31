@@ -12,4 +12,8 @@
     width: 100px;
     height: 100px;
   }
-  
+
+  .recipe-name::first-letter {
+    font-size: 3rem;
+    color: red;
+}
