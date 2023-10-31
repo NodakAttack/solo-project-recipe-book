@@ -1,0 +1,14 @@
+/* Library.css */
+.recipe-details {
+    display: flex;
+  }
+  
+  .recipe-details-content {
+    flex: 1;
+  }
+  
+  .recipe-image {
+    width: 100px;
+    height: 100px;
+  }
+  

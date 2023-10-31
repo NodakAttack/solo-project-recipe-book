@@ -21,6 +21,11 @@
   margin: 0;
 }
 
+.title-text {
+  color: #6bf142;
+  font-weight: bold;
+}
+
 .navLink {
   display: inline-block;
   color: #f2f2f2;

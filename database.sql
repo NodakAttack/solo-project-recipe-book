@@ -52,3 +52,7 @@ ALTER TABLE "ingredients" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("re
 ALTER TABLE "steps" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
 
 ALTER TABLE "notes" ADD FOREIGN KEY ("recipeID") REFERENCES "recipes" ("recipeID");
+
+-- examples to populate tables-- 
+
+
