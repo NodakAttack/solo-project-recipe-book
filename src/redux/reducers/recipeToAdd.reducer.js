@@ -10,7 +10,7 @@ const initialState = {
 
 const recipeToAddReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_NAME':
+    case 'ADDRECIPE_NAME':
       return {
         ...state,
         recipeToAdd: {
@@ -18,7 +18,7 @@ const recipeToAddReducer = (state = initialState, action) => {
           name: action.payload,
         },
       };
-    case 'ADD_INGREDIENT':
+    case 'ADDRECIPE_INGREDIENT':
       return {
         ...state,
         recipeToAdd: {
@@ -26,7 +26,7 @@ const recipeToAddReducer = (state = initialState, action) => {
           ingredients: [...state.recipeToAdd.ingredients, action.payload],
         },
       };
-    case 'ADD_STEP':
+    case 'ADDRECIPE_STEP':
       return {
         ...state,
         recipeToAdd: {
@@ -34,7 +34,7 @@ const recipeToAddReducer = (state = initialState, action) => {
           steps: [...state.recipeToAdd.steps, action.payload],
         },
       };
-    case 'ADD_NOTE':
+    case 'ADDRECIPE_NOTE':
       return {
         ...state,
         recipeToAdd: {

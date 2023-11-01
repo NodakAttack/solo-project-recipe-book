@@ -12,7 +12,7 @@ function AddRecipe() {
 
   const addName = () => {
     dispatch({
-      type: "ADD_NAME",
+      type: "ADDRECIPE_NAME",
       payload: nameInputRef.current.value,
     });
     nameInputRef.current.value = ""; // Clear the input field
@@ -20,7 +20,7 @@ function AddRecipe() {
 
   const addIngredient = () => {
     dispatch({
-      type: "ADD_INGREDIENT",
+      type: "ADDRECIPE_INGREDIENT",
       payload: ingredientInputRef.current.value,
     });
     ingredientInputRef.current.value = ""; // Clear the input field
@@ -28,7 +28,7 @@ function AddRecipe() {
 
   const addStep = () => {
     dispatch({
-      type: "ADD_STEP",
+      type: "ADDRECIPE_STEP",
       payload: stepInputRef.current.value,
     });
     stepInputRef.current.value = ""; // Clear the input field
@@ -36,7 +36,7 @@ function AddRecipe() {
 
   const addNote = () => {
     dispatch({
-      type: "ADD_NOTE",
+      type: "ADDRECIPE_NOTE",
       payload: noteInputRef.current.value,
     });
     noteInputRef.current.value = ""; // Clear the input field
@@ -44,7 +44,7 @@ function AddRecipe() {
 
   const addRecipe = () => {
     dispatch({
-      type: "ADD_RECIPE",
+      type: "ADDRECIPE_RECIPE",
       payload: recipeToAdd,
     });
     // Clear your recipeToAdd state or perform any other necessary actions. TODO

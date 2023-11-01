@@ -50,7 +50,7 @@ function* deleteRecipe(action) {
 function* recipeSaga(){
     yield takeLatest('FETCH_RECIPE_LIST', getRecipeList);
     yield takeLatest('FETCH_SELECTED_RECIPE', getRecipeByID);
-    yield takeLatest('ADD_RECIPE', addRecipe);
+    yield takeLatest('ADDRECIPE_RECIPE', addRecipe);
     yield takeLatest('DELETE_RECIPE', deleteRecipe);
 }
 
