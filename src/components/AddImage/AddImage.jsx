@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 const AddImage = ({recipeID}) => {
+
+  const dispatch = useDispatch();
 
   // imagePath will be the URL returned from Cloudinary
   let [imagePath, setImagePath] = useState('');
@@ -35,6 +38,7 @@ const AddImage = ({recipeID}) => {
     axios.post(`/api/recipe/picture/${recipeID}`, { path: imagePath })
          .then((response) => {
           //clear image
+          dispatch({ type: "FETCH_SELECTED_RECIPE", payload: recipeID });
           setImagePath('');
          })
          .catch((error) => {

@@ -20,7 +20,6 @@ const RecipeView = () => {
     dispatch({ type: "FETCH_STEPS", payload: recipeID });
     dispatch({ type: "FETCH_NOTES", payload: recipeID });
   }, [dispatch, recipeID]);
-  
 
   const recipe = useSelector((store) => store.selectedRecipe);
   const ingredients = useSelector((store) => store.ingredients);
@@ -33,22 +32,33 @@ const RecipeView = () => {
   }
 
   const handleAddIngredient = () => {
-    if (addIngredientInputRef.current && addIngredientInputRef.current.value.trim() !== "") {
+    if (
+      addIngredientInputRef.current &&
+      addIngredientInputRef.current.value.trim() !== ""
+    ) {
       dispatch({
         type: "ADD_INGREDIENT",
-        payload: { recipeID, ingredientName: addIngredientInputRef.current.value },
+        payload: {
+          recipeID,
+          ingredientName: addIngredientInputRef.current.value,
+        },
       });
       addIngredientInputRef.current.value = ""; // Clear the input field
     }
   };
-  
 
   const handleDeleteIngredient = (ingredientID) => {
-    dispatch({ type: "DELETE_INGREDIENT", payload: { recipeID, ingredientID } });
+    dispatch({
+      type: "DELETE_INGREDIENT",
+      payload: { recipeID, ingredientID },
+    });
   };
 
   const handleAddStep = () => {
-    if (addStepInputRef.current && addStepInputRef.current.value.trim() !== "") {
+    if (
+      addStepInputRef.current &&
+      addStepInputRef.current.value.trim() !== ""
+    ) {
       dispatch({
         type: "ADD_STEP",
         payload: { recipeID, stepDescription: addStepInputRef.current.value },
@@ -56,7 +66,7 @@ const RecipeView = () => {
       addStepInputRef.current.value = ""; // Clear the input field
     }
   };
-  
+
   const handleDeleteStep = (stepID) => {
     dispatch({ type: "DELETE_STEP", payload: { recipeID, stepID } });
   };
@@ -72,7 +82,10 @@ const RecipeView = () => {
   };
 
   const handleAddNote = () => {
-    if (addNoteInputRef.current && addNoteInputRef.current.value.trim() !== "") {
+    if (
+      addNoteInputRef.current &&
+      addNoteInputRef.current.value.trim() !== ""
+    ) {
       dispatch({
         type: "ADD_NOTE",
         payload: { recipeID, noteDescription: addNoteInputRef.current.value },
@@ -80,7 +93,7 @@ const RecipeView = () => {
       addNoteInputRef.current.value = ""; // Clear the input field
     }
   };
-  
+
   const handleDeleteNote = (noteID) => {
     dispatch({ type: "DELETE_NOTE", payload: { recipeID, noteID } });
   };
@@ -94,7 +107,6 @@ const RecipeView = () => {
       });
     }
   };
-  
 
   return (
     <div className="recipe-view">
@@ -118,12 +130,22 @@ const RecipeView = () => {
             {ingredients.map((ingredient, index) => (
               <li key={index}>
                 {ingredient.ingredientName}
-                <button
-                  onClick={() => handleDeleteIngredient(ingredient.ingredientID)}
-                  className="delete-button"
-                >
-                  X
-                </button>
+                <div className="action-buttons">
+                  <button
+                    onClick={() => handleEditStep(ingredient)}
+                    className="edit-button"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleDeleteIngredient(ingredient.ingredientID)
+                    }
+                    className="delete-button"
+                  >
+                    X
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
@@ -139,18 +161,20 @@ const RecipeView = () => {
             {steps.map((step, index) => (
               <li key={index}>
                 {step.stepDescription}
-                <button
-                  onClick={() => handleEditStep(step)}
-                  className="edit-button"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteStep(step.stepID)}
-                  className="delete-button"
-                >
-                  X
-                </button>
+                <div className="action-buttons">
+                  <button
+                    onClick={() => handleEditStep(step)}
+                    className="edit-button"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteStep(step.stepID)}
+                    className="delete-button"
+                  >
+                    X
+                  </button>
+                </div>
               </li>
             ))}
           </ol>
@@ -166,18 +190,20 @@ const RecipeView = () => {
             {notes.map((note, index) => (
               <li key={index}>
                 {note.noteDescription}
-                <button
-                  onClick={() => handleEditNote(note)}
-                  className="edit-button"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDeleteNote(note.noteID)}
-                  className="delete-button"
-                >
-                  X
-                </button>
+                <div className="action-buttons">
+                  <button
+                    onClick={() => handleEditNote(note)}
+                    className="edit-button"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDeleteNote(note.noteID)}
+                    className="delete-button"
+                  >
+                    X
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
@@ -185,10 +211,21 @@ const RecipeView = () => {
       </div>
 
       <div className="right-section">
+        {recipe.recipePicture && (
+          <img
+            src={recipe.recipePicture}
+            alt="Recipe"
+            className="recipe-image"
+            style={{
+              height: "400px",
+              width: "400px",
+            }}
+          />
+        )}
         <AddImage recipeID={recipeID} />
       </div>
     </div>
   );
-}
+};
 
 export default RecipeView;
