@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 
 import AddImage from "../AddImage/AddImage";
 
+import "./RecipeView.css";
+
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
@@ -96,57 +98,97 @@ const RecipeView = () => {
 
   return (
     <div className="recipe-view">
-      <h2 className="recipe-name">
-        {recipe.recipeName}
-        <button className="edit-button">Edit Name</button>
-      </h2>
+      <div className="left-section">
+        <h2 className="recipe-name">
+          {recipe.recipeName}
+          <button className="edit-button">Edit Name</button>
+        </h2>
 
-      <div className="recipe-section">
-        <AddImage recipeID={recipeID}/>
-        <h3>Ingredients</h3>
-        <input placeholder="Ingredient" type="text" ref={addIngredientInputRef} /><button className="add-button" onClick={handleAddIngredient}>Add</button>
-        <ul>
-          {ingredients.map((ingredient, index) => (
-            <li key={index}>
-              {ingredient.ingredientName}
-              <button onClick={() => handleDeleteIngredient(ingredient.ingredientID)} className="delete-button">X</button>
-              
-            </li>
-          ))}
-        </ul>
+        <div className="recipe-section">
+          <h3>Ingredients</h3>
+          <input
+            placeholder="Ingredient"
+            type="text"
+            ref={addIngredientInputRef}
+          />
+          <button className="add-button" onClick={handleAddIngredient}>
+            Add
+          </button>
+          <ul>
+            {ingredients.map((ingredient, index) => (
+              <li key={index}>
+                {ingredient.ingredientName}
+                <button
+                  onClick={() => handleDeleteIngredient(ingredient.ingredientID)}
+                  className="delete-button"
+                >
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="recipe-section">
+          <h3>Steps</h3>
+          <input placeholder="Steps" type="text" ref={addStepInputRef} />
+          <button className="add-button" onClick={handleAddStep}>
+            Add
+          </button>
+          <ol>
+            {steps.map((step, index) => (
+              <li key={index}>
+                {step.stepDescription}
+                <button
+                  onClick={() => handleEditStep(step)}
+                  className="edit-button"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteStep(step.stepID)}
+                  className="delete-button"
+                >
+                  X
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="recipe-section">
+          <h3>Notes</h3>
+          <input placeholder="Notes" type="text" ref={addNoteInputRef} />
+          <button className="add-button" onClick={handleAddNote}>
+            Add
+          </button>
+          <ul>
+            {notes.map((note, index) => (
+              <li key={index}>
+                {note.noteDescription}
+                <button
+                  onClick={() => handleEditNote(note)}
+                  className="edit-button"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteNote(note.noteID)}
+                  className="delete-button"
+                >
+                  X
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <div className="recipe-section">
-        <h3>Steps</h3>
-        <input placeholder="Steps" type="text" ref={addStepInputRef} /><button className="add-button" onClick={handleAddStep}>Add</button>
-        <ol>
-          {steps.map((step, index) => (
-            <li key={index}>
-              {step.stepDescription}
-              <button onClick={() => handleEditStep(step)} className="edit-button">Edit</button>
-              <button onClick={() => handleDeleteStep(step.stepID)} className="delete-button">X</button>
-              
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div className="recipe-section">
-        <h3>Notes</h3>
-        <input placeholder="Notes" type="text" ref={addNoteInputRef} /><button className="add-button" onClick={handleAddNote}>Add</button>
-        <ul>
-          {notes.map((note, index) => (
-            <li key={index}>
-              {note.noteDescription}
-              <button onClick={() => handleEditNote(note)} className="edit-button">Edit</button>
-              <button onClick={() => handleDeleteNote(note.noteID)} className="delete-button">X</button>
-              
-            </li>
-          ))}
-        </ul>
+      <div className="right-section">
+        <AddImage recipeID={recipeID} />
       </div>
     </div>
   );
-};
+}
 
 export default RecipeView;

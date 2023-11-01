@@ -22,7 +22,7 @@
 }
 
 .title-text {
-  color: #6bf142;
+  color: #9e4747;
   font-weight: bold;
 }
 
@@ -42,6 +42,7 @@
   cursor: pointer;
   outline: 0;
 }
+
 
 .navLink:hover {
   background-color: #e9b005;

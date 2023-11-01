@@ -46,9 +46,6 @@ const AddImage = ({recipeID}) => {
 
   return (
     <div id="container">
-      <header>
-        <h1>Image Upload with Cloudinary</h1>
-      </header>
       <h2>Upload Image</h2>
       <form onSubmit={sendPhotoToServer}>
         <input
@@ -66,7 +63,7 @@ const AddImage = ({recipeID}) => {
           )
         }
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit">Add Image to Recipe</button>
       </form>
     </div>
   );

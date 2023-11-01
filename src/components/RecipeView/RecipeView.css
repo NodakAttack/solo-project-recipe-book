@@ -1,0 +1,59 @@
+.recipe-view {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .left-section {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .right-section {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .recipe-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .recipe-section {
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  ul, ol {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .edit-button, .delete-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 3px 8px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .add-button {
+    background-color: #00ff00;
+    color: #fff;
+    border: none;
+    padding: 3px 8px;
+    cursor: pointer;
+  }
+  

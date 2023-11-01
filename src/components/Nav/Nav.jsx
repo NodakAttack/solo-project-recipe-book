@@ -11,8 +11,7 @@ function Nav() {
     <div className="nav">
       <Link to="/home">
         <h2 className="nav-title">
-          <span className="title-text">--Food & Stuff--</span> Welcome:{" "}
-          {user.username}
+        {user.id ? `Welcome, ${user.username}` : "--Food & Stuff--"}
         </h2>
 
         <h2></h2>

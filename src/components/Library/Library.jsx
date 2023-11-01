@@ -51,13 +51,14 @@ const Library = () => {
 
   return (
     <div className="container">
-      <h1>---Recipe List---</h1>
+      <h1>Recipe List</h1>
       <div>
         <div>
           <Input
             type="text"
             placeholder="Search recipes"
             inputRef={searchInputRef}
+            style={{ backgroundColor: 'grey', margin:'5px'}}
           />
           <Button variant="contained" onClick={handleSearch}>
             Search
