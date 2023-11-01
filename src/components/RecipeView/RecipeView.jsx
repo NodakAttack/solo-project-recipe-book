@@ -132,12 +132,6 @@ const RecipeView = () => {
                 {ingredient.ingredientName}
                 <div className="action-buttons">
                   <button
-                    onClick={() => handleEditStep(ingredient)}
-                    className="edit-button"
-                  >
-                    Edit
-                  </button>
-                  <button
                     onClick={() =>
                       handleDeleteIngredient(ingredient.ingredientID)
                     }
