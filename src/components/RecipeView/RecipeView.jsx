@@ -6,6 +6,12 @@ import AddImage from "../AddImage/AddImage";
 
 import "./RecipeView.css";
 
+// mat UI
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+
 const RecipeView = () => {
   const dispatch = useDispatch();
   const { recipeID } = useParams();
@@ -111,97 +117,102 @@ const RecipeView = () => {
   return (
     <div className="recipe-view">
       <div className="left-section">
-        <h2 className="recipe-name">
-          {recipe.recipeName}
-          <button className="edit-button">Edit Name</button>
-        </h2>
+        <Card sx={{ maxWidth: 545, backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+         
+          <CardContent>
+            <h2 className="recipe-name">
+              {recipe.recipeName}
+              <button className="edit-button">Edit Name</button>
+            </h2>
 
-        <div className="recipe-section">
-          <h3>Ingredients</h3>
-          <input
-            placeholder="Ingredient"
-            type="text"
-            ref={addIngredientInputRef}
-          />
-          <button className="add-button" onClick={handleAddIngredient}>
-            Add
-          </button>
-          <ul>
-            {ingredients.map((ingredient, index) => (
-              <li key={index}>
-                {ingredient.ingredientName}
-                <div className="action-buttons">
-                  <button
-                    onClick={() =>
-                      handleDeleteIngredient(ingredient.ingredientID)
-                    }
-                    className="delete-button"
-                  >
-                    X
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+            <div className="recipe-section">
+              <h3>Ingredients</h3>
+              <input
+                placeholder="Ingredient"
+                type="text"
+                ref={addIngredientInputRef}
+              />
+              <button className="add-button" onClick={handleAddIngredient}>
+                Add
+              </button>
+              <ul>
+                {ingredients.map((ingredient, index) => (
+                  <li key={index}>
+                    {ingredient.ingredientName}
+                    <div className="action-buttons">
+                      <button
+                        onClick={() =>
+                          handleDeleteIngredient(ingredient.ingredientID)
+                        }
+                        className="delete-button"
+                      >
+                        X
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-        <div className="recipe-section">
-          <h3>Steps</h3>
-          <input placeholder="Steps" type="text" ref={addStepInputRef} />
-          <button className="add-button" onClick={handleAddStep}>
-            Add
-          </button>
-          <ol>
-            {steps.map((step, index) => (
-              <li key={index}>
-                {step.stepDescription}
-                <div className="action-buttons">
-                  <button
-                    onClick={() => handleEditStep(step)}
-                    className="edit-button"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteStep(step.stepID)}
-                    className="delete-button"
-                  >
-                    X
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+            <div className="recipe-section">
+              <h3>Steps</h3>
+              <input placeholder="Steps" type="text" ref={addStepInputRef} />
+              <button className="add-button" onClick={handleAddStep}>
+                Add
+              </button>
+              <ol>
+                {steps.map((step, index) => (
+                  <li key={index}>
+                    {step.stepDescription}
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => handleEditStep(step)}
+                        className="edit-button"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteStep(step.stepID)}
+                        className="delete-button"
+                      >
+                        X
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
 
-        <div className="recipe-section">
-          <h3>Notes</h3>
-          <input placeholder="Notes" type="text" ref={addNoteInputRef} />
-          <button className="add-button" onClick={handleAddNote}>
-            Add
-          </button>
-          <ul>
-            {notes.map((note, index) => (
-              <li key={index}>
-                {note.noteDescription}
-                <div className="action-buttons">
-                  <button
-                    onClick={() => handleEditNote(note)}
-                    className="edit-button"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteNote(note.noteID)}
-                    className="delete-button"
-                  >
-                    X
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+            <div className="recipe-section">
+              <h3>Notes</h3>
+              <input placeholder="Notes" type="text" ref={addNoteInputRef} />
+              <button className="add-button" onClick={handleAddNote}>
+                Add
+              </button>
+              <ul>
+                {notes.map((note, index) => (
+                  <li key={index}>
+                    {note.noteDescription}
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => handleEditNote(note)}
+                        className="edit-button"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteNote(note.noteID)}
+                        className="delete-button"
+                      >
+                        X
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="right-section">

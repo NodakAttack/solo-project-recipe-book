@@ -60,7 +60,7 @@ const Library = () => {
             inputRef={searchInputRef}
             style={{ backgroundColor: 'grey', margin:'5px'}}
           />
-          <Button variant="contained" onClick={handleSearch}>
+          <Button variant="contained" onClick={handleSearch} sx={{backgroundColor: 'red'}}>
             Search
           </Button>
           <br/>
@@ -68,7 +68,7 @@ const Library = () => {
         </div>
 
         {recipeList.map((recipe) => (
-          <Accordion key={recipe.recipeID}>
+          <Accordion key={recipe.recipeID} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <div>
                 <Typography
