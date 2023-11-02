@@ -9,7 +9,6 @@
   }
   
   .right-section {
-    flex: 1;
     padding: 10px;
   }
   
@@ -28,26 +27,15 @@
     margin-right: 10px;
   }
 
-  
   li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 5px;
+    position: relative;
   }
   
   .action-buttons {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  
-  .add-button {
-    background-color: #008600;
-    color: #fff;
-    border: none;
-    padding: 3px 8px;
+    position: absolute;
+    right: 0;
+    display: flex; 
     cursor: pointer;
   }
 

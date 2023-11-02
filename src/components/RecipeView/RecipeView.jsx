@@ -10,9 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 // mat UI
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 
 const RecipeView = () => {
   const dispatch = useDispatch();
@@ -124,7 +122,6 @@ const RecipeView = () => {
           <CardContent>
             <h2 className="recipe-name">
               {recipe.recipeName}{' '}
-              <i class="bi bi-pencil  me-2"></i> <i class="bi bi-trash3"></i>
             </h2>
 
             <div className="recipe-section">
@@ -134,22 +131,13 @@ const RecipeView = () => {
                 type="text"
                 ref={addIngredientInputRef}
               />
-              <button className="add-button" onClick={handleAddIngredient}>
-                Add
-              </button>
+              <i className="bi bi-plus-square" onClick={handleAddIngredient} />
               <ul>
                 {ingredients.map((ingredient, index) => (
                   <li key={index}>
                     {ingredient.ingredientName}
                     <div className="action-buttons">
-                      <button
-                        onClick={() =>
-                          handleDeleteIngredient(ingredient.ingredientID)
-                        }
-                        className="delete-button"
-                      >
-                        X
-                      </button>
+                    <i className="bi bi-trash3" onClick={() => handleDeleteIngredient(ingredient)}/>
                     </div>
                   </li>
                 ))}
@@ -159,16 +147,14 @@ const RecipeView = () => {
             <div className="recipe-section">
               <h3>Steps</h3>
               <input placeholder="Steps" type="text" ref={addStepInputRef} />
-              <button className="add-button" onClick={handleAddStep}>
-                Add
-              </button>
+              <i className="bi bi-plus-square" onClick={handleAddStep} />
               <ol>
                 {steps.map((step, index) => (
                   <li key={index}>
                     {step.stepDescription}
                     <div className="action-buttons">
-                    <i class="bi bi-pencil  me-2" onClick={() => handleEditStep(step)}/>
-                    <i class="bi bi-trash3" onClick={() => handleDeleteStep(step.stepID)} />
+                    <i className="bi bi-pencil  me-2" onClick={() => handleEditStep(step)}/>
+                    <i className="bi bi-trash3" onClick={() => handleDeleteStep(step.stepID)} />
                     </div>
                   </li>
                 ))}
@@ -178,26 +164,14 @@ const RecipeView = () => {
             <div className="recipe-section">
               <h3>Notes</h3>
               <input placeholder="Notes" type="text" ref={addNoteInputRef} />
-              <button className="add-button" onClick={handleAddNote}>
-                Add
-              </button>
+              <i className="bi bi-plus-square" onClick={handleAddNote} />
               <ul>
                 {notes.map((note, index) => (
                   <li key={index}>
                     {note.noteDescription}
                     <div className="action-buttons">
-                      <button
-                        onClick={() => handleEditNote(note)}
-                        className="edit-button"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteNote(note.noteID)}
-                        className="delete-button"
-                      >
-                        X
-                      </button>
+                    <i className="bi bi-pencil  me-2" onClick={() => handleEditNote(note)}/>
+                    <i className="bi bi-trash3" onClick={() => handleDeleteNote(note.noteID)} />
                     </div>
                   </li>
                 ))}
