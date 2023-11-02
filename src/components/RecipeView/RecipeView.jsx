@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import AddImage from "../AddImage/AddImage";
 
 import "./RecipeView.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 // mat UI
 import Card from "@mui/material/Card";
@@ -121,8 +123,8 @@ const RecipeView = () => {
          
           <CardContent>
             <h2 className="recipe-name">
-              {recipe.recipeName}
-              <button className="edit-button">Edit Name</button>
+              {recipe.recipeName}{' '}
+              <i class="bi bi-pencil  me-2"></i> <i class="bi bi-trash3"></i>
             </h2>
 
             <div className="recipe-section">
@@ -165,18 +167,8 @@ const RecipeView = () => {
                   <li key={index}>
                     {step.stepDescription}
                     <div className="action-buttons">
-                      <button
-                        onClick={() => handleEditStep(step)}
-                        className="edit-button"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteStep(step.stepID)}
-                        className="delete-button"
-                      >
-                        X
-                      </button>
+                    <i class="bi bi-pencil  me-2" onClick={() => handleEditStep(step)}/>
+                    <i class="bi bi-trash3" onClick={() => handleDeleteStep(step.stepID)} />
                     </div>
                   </li>
                 ))}

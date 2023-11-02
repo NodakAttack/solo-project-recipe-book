@@ -39,17 +39,9 @@
   .action-buttons {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   
-  .edit-button,
-  .delete-button {
-    background-color: #ac0505;
-    color: #fff;
-    border: none;
-    padding: 3px 8px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
   
   .add-button {
     background-color: #008600;
@@ -57,5 +49,9 @@
     border: none;
     padding: 3px 8px;
     cursor: pointer;
+  }
+
+  .bi {
+    margin-right: 8px;
   }
   

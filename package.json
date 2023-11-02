@@ -12,6 +12,7 @@
     "@mui/icons-material": "^5.14.16",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
+    "bootstrap-icons": "^1.11.1",
     "cookie-session": "^2.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
