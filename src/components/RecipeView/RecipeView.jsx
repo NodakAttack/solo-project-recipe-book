@@ -54,6 +54,7 @@ const RecipeView = () => {
   };
 
   const handleDeleteIngredient = (ingredientID) => {
+    console.log(recipeID, ingredientID.ingredientID);
     dispatch({
       type: "DELETE_INGREDIENT",
       payload: { recipeID, ingredientID },
@@ -137,7 +138,7 @@ const RecipeView = () => {
                   <li key={index}>
                     {ingredient.ingredientName}
                     <div className="action-buttons">
-                    <i className="bi bi-trash3" onClick={() => handleDeleteIngredient(ingredient)}/>
+                    <i className="bi bi-trash3" onClick={() => handleDeleteIngredient(ingredient.ingredientID)}/>
                     </div>
                   </li>
                 ))}

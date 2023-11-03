@@ -17,6 +17,7 @@ function* addIngredient(action) {
 function* deleteIngredient(action) {
   try {
     const { recipeID, ingredientID } = action.payload;
+    console.log("recipeid:", recipeID, "ingredientID:", ingredientID);
     yield call(axios.delete, `/api/ingredients/${recipeID}/${ingredientID}`);
     yield put({ type: "FETCH_INGREDIENTS", payload: recipeID }); // Refresh the ingredients after deleting
   } catch (error) {

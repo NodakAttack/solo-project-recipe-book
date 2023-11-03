@@ -10,7 +10,6 @@
   
   .right-section {
     padding: 10px;
-    margin-right: 300px;
   }
   
   .recipe-name {
@@ -34,7 +33,6 @@
   }
   
   .action-buttons {
-    position: absolute;
     right: 0;
     display: flex; 
     cursor: pointer;
