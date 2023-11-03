@@ -21,3 +21,7 @@
 .search-input {
   width: 200px;
 }
+
+.search-button {
+  margin-left: 10px !important;
+}

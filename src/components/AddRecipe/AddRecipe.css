@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .add-recipe-card {
+    max-width: 545px;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-right: 10px;
+  }
+  
+  .recipe-card {
+    max-width: 545px;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .add-form-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .form-input {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .label {
+    margin-right: 10px;
+  }
+  
+  .input-field {
+    width: 60%;
+    padding: 5px;
+  }
+  
+  .button {
+    background-color: #0074D9;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .recipe-name {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .recipe-list {
+    margin-left: 20px;
+  }
+  
+  /* You can customize these styles further to your liking. */
+  

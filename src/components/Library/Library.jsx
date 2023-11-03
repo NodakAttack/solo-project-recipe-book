@@ -63,6 +63,7 @@ const Library = () => {
             style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
           />
           <Button
+          className="search-button"
             variant="contained"
             onClick={handleSearch}
             sx={{ backgroundColor: "red" }}

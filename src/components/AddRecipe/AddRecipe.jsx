@@ -1,6 +1,12 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// mat UI
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+
+import "./AddRecipe.css";
+
 function AddRecipe() {
   const dispatch = useDispatch();
   const recipeToAdd = useSelector((store) => store.recipeToAdd.recipeToAdd);
@@ -52,43 +58,57 @@ function AddRecipe() {
 
   return (
     <div className="container">
-      <h2>Add a Recipe</h2>
-      Name: <input type="text" ref={nameInputRef} />
-      <button onClick={addName}>Set Name</button>
-      <br />
-      <h2>{recipeToAdd.name}</h2>
-      <br />
-
-      Ingredients:
-      <input type="text" ref={ingredientInputRef} />
-      <button onClick={addIngredient}>Add Ingredient</button>
-      <ul>
-        {recipeToAdd.ingredients.map((ingredient, index) => (
-          <li key={index}>{ingredient}</li>
-        ))}
-      </ul>
-
-      Cooking Steps:
-      <input type="text" ref={stepInputRef} />
-      <button onClick={addStep}>Add Step</button>
-      <ul>
-        {recipeToAdd.steps.map((step, index) => (
-          <li key={index}>{step}</li>
-        ))}
-      </ul>
-
-      Notes:
-      <input type="text" ref={noteInputRef} />
-      <button onClick={addNote}>Add Note</button>
-      <ul>
-        {recipeToAdd.notes.map((note, index) => (
-          <li key={index}>{note}</li>
-        ))}
-      </ul>
-
-      <button onClick={addRecipe}>Submit Recipe</button>
+      <Card className="add-recipe-card">
+        <CardContent className="add-form">
+          <h2 className="add-form-heading">Add a Recipe</h2>
+          <div className="form-input">
+            <label>Name:</label>
+            <input type="text" className="input-field" ref={nameInputRef} />
+            <button className="button" onClick={addName}>Set Name</button>
+          </div>
+          <div className="form-input">
+            <label>Ingredients:</label>
+            <input type="text" className="input-field" ref={ingredientInputRef} />
+            <button className="button" onClick={addIngredient}>Add Ingredient</button>
+          </div>
+          <div className="form-input">
+            <label>Cooking Steps:</label>
+            <input type="text" className="input-field" ref={stepInputRef} />
+            <button className="button" onClick={addStep}>Add Step</button>
+          </div>
+          <div className="form-input">
+            <label>Notes:</label>
+            <input type="text" className="input-field" ref={noteInputRef} />
+            <button className="button" onClick={addNote}>Add Note</button>
+          </div>
+        </CardContent>
+      </Card>
+      <Card className="recipe-card">
+        <CardContent className="recipe-to-add">
+          <h1 className="recipe-name">{recipeToAdd.name}</h1>
+          <h2>Ingredients</h2>
+          <ul className="recipe-list">
+            {recipeToAdd.ingredients.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
+          <h2>Cooking Steps</h2>
+          <ol className="recipe-list">
+            {recipeToAdd.steps.map((step, index) => (
+              <li key={index}>{step}</li>
+            ))}
+          </ol>
+          <h2>Notes</h2>
+          <ul className="recipe-list">
+            {recipeToAdd.notes.map((note, index) => (
+              <li key={index}>{note}</li>
+            ))}
+          </ul>
+          <button className="button" onClick={addRecipe}>Submit Recipe</button>
+        </CardContent>
+      </Card>
     </div>
   );
-}
+            }
 
 export default AddRecipe;
