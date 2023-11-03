@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // mat UI
 import Card from "@mui/material/Card";
@@ -9,6 +10,7 @@ import "./AddRecipe.css";
 
 function AddRecipe() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const recipeToAdd = useSelector((store) => store.recipeToAdd.recipeToAdd);
 
   const nameInputRef = useRef(null);
@@ -53,6 +55,8 @@ function AddRecipe() {
       type: "ADDRECIPE_RECIPE",
       payload: recipeToAdd,
     });
+    dispatch({ type: "CLEAR_RECIPE" });
+    history.push("/library");
     // Clear your recipeToAdd state or perform any other necessary actions. TODO
   };
 

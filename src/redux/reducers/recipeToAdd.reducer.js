@@ -1,4 +1,3 @@
-
 const initialState = {
   recipeToAdd: {
     name: "",
@@ -10,7 +9,7 @@ const initialState = {
 
 const recipeToAddReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADDRECIPE_NAME':
+    case "ADDRECIPE_NAME":
       return {
         ...state,
         recipeToAdd: {
@@ -18,7 +17,7 @@ const recipeToAddReducer = (state = initialState, action) => {
           name: action.payload,
         },
       };
-    case 'ADDRECIPE_INGREDIENT':
+    case "ADDRECIPE_INGREDIENT":
       return {
         ...state,
         recipeToAdd: {
@@ -26,7 +25,7 @@ const recipeToAddReducer = (state = initialState, action) => {
           ingredients: [...state.recipeToAdd.ingredients, action.payload],
         },
       };
-    case 'ADDRECIPE_STEP':
+    case "ADDRECIPE_STEP":
       return {
         ...state,
         recipeToAdd: {
@@ -34,12 +33,23 @@ const recipeToAddReducer = (state = initialState, action) => {
           steps: [...state.recipeToAdd.steps, action.payload],
         },
       };
-    case 'ADDRECIPE_NOTE':
+    case "ADDRECIPE_NOTE":
       return {
         ...state,
         recipeToAdd: {
           ...state.recipeToAdd,
           notes: [...state.recipeToAdd.notes, action.payload],
+        },
+      };
+    case "CLEAR_RECIPE":
+      // Reset the state to the initial state
+      return {
+        ...state,
+        recipeToAdd: {
+          name: "",
+          ingredients: [],
+          steps: [],
+          notes: [],
         },
       };
     default:
