@@ -150,9 +150,11 @@ function AddRecipe() {
               <li key={index}>{note}</li>
             ))}
           </ul>
+          <div style={{ textAlign: 'center' }}>
           <button className="button" onClick={addRecipe}>
             Submit Recipe
           </button>
+          </div>
         </CardContent>
       </Card>
     </div>
