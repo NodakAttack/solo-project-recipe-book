@@ -26,12 +26,26 @@ function AddRecipe() {
     nameInputRef.current.value = ""; // Clear the input field
   };
 
+  const handleNameInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      addName();
+      ingredientInputRef.current.focus(); // Focus back on the input field
+    }
+  };
+
   const addIngredient = () => {
     dispatch({
       type: "ADDRECIPE_INGREDIENT",
       payload: ingredientInputRef.current.value,
     });
     ingredientInputRef.current.value = ""; // Clear the input field
+  };
+
+  const handleIngredientInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      addIngredient();
+      ingredientInputRef.current.focus(); // Focus back on the input field
+    }
   };
 
   const addStep = () => {
@@ -42,12 +56,26 @@ function AddRecipe() {
     stepInputRef.current.value = ""; // Clear the input field
   };
 
+  const handleStepInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      addStep();
+      stepInputRef.current.focus(); // Focus back on the input field
+    }
+  };
+
   const addNote = () => {
     dispatch({
       type: "ADDRECIPE_NOTE",
       payload: noteInputRef.current.value,
     });
     noteInputRef.current.value = ""; // Clear the input field
+  };
+
+  const handleNoteInputKeyPress = (event) => {
+    if (event.key === "Enter") {
+      addNote();
+      noteInputRef.current.focus(); // Focus back on the input field
+    }
   };
 
   const addRecipe = () => {
@@ -62,28 +90,42 @@ function AddRecipe() {
 
   return (
     <div className="add-recipe-container">
+
       <Card className="add-recipe-card">
         <CardContent className="add-form">
           <h2 className="add-form-heading">Add a Recipe</h2>
           <div className="form-input">
             <label>Name:</label>
-            <input type="text" className="input-field" ref={nameInputRef} />
-            <button className="button" onClick={addName}>Set Name</button>
+            <input type="text" className="input-field" ref={nameInputRef} onKeyUp={handleNameInputKeyPress}/>
+            <button className="button" onClick={addName}>
+              Set Name
+            </button>
           </div>
           <div className="form-input">
             <label>Ingredients:</label>
-            <input type="text" className="input-field" ref={ingredientInputRef} />
-            <button className="button" onClick={addIngredient}>Add Ingredient</button>
+            <input
+              type="text"
+              className="input-field"
+              ref={ingredientInputRef}
+              onKeyUp={handleIngredientInputKeyPress}
+            />
+            <button className="button" onClick={addIngredient}>
+              Add Ingredient
+            </button>
           </div>
           <div className="form-input">
             <label>Cooking Steps:</label>
-            <input type="text" className="input-field" ref={stepInputRef} />
-            <button className="button" onClick={addStep}>Add Step</button>
+            <input type="text" className="input-field" ref={stepInputRef}  onKeyUp={handleStepInputKeyPress}/>
+            <button className="button" onClick={addStep}>
+              Add Step
+            </button>
           </div>
           <div className="form-input">
             <label>Notes:</label>
-            <input type="text" className="input-field" ref={noteInputRef} />
-            <button className="button" onClick={addNote}>Add Note</button>
+            <input type="text" className="input-field" ref={noteInputRef} onKeyUp={handleNoteInputKeyPress}/>
+            <button className="button" onClick={addNote}>
+              Add Note
+            </button>
           </div>
         </CardContent>
       </Card>
@@ -108,11 +150,13 @@ function AddRecipe() {
               <li key={index}>{note}</li>
             ))}
           </ul>
-          <button className="button" onClick={addRecipe}>Submit Recipe</button>
+          <button className="button" onClick={addRecipe}>
+            Submit Recipe
+          </button>
         </CardContent>
       </Card>
     </div>
   );
-            }
+}
 
 export default AddRecipe;
