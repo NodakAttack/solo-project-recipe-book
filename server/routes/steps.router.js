@@ -9,7 +9,8 @@ router.get("/:recipeID", (req, res) => {
     let queryText = `
       SELECT s."stepID", s."description" as "stepDescription"
       FROM "steps" s
-      WHERE s."recipeID" = $1;
+      WHERE s."recipeID" = $1
+      ORDER BY s."stepID" ASC;
     `;
 
     let queryParams = [recipeID];
