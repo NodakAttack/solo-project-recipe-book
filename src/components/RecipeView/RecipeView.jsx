@@ -137,9 +137,7 @@ const RecipeView = () => {
                 {ingredients.map((ingredient, index) => (
                   <li key={index}>
                     {ingredient.ingredientName}
-                    <div className="action-buttons">
                     <i className="bi bi-trash3" onClick={() => handleDeleteIngredient(ingredient.ingredientID)}/>
-                    </div>
                   </li>
                 ))}
               </ul>
@@ -152,11 +150,9 @@ const RecipeView = () => {
               <ol>
                 {steps.map((step, index) => (
                   <li key={index}>
-                    {step.stepDescription}
-                    <div className="action-buttons">
+                    {step.stepDescription}{" "}
                     <i className="bi bi-pencil  me-2" onClick={() => handleEditStep(step)}/>
                     <i className="bi bi-trash3" onClick={() => handleDeleteStep(step.stepID)} />
-                    </div>
                   </li>
                 ))}
               </ol>
@@ -170,10 +166,8 @@ const RecipeView = () => {
                 {notes.map((note, index) => (
                   <li key={index}>
                     {note.noteDescription}
-                    <div className="action-buttons">
                     <i className="bi bi-pencil  me-2" onClick={() => handleEditNote(note)}/>
                     <i className="bi bi-trash3" onClick={() => handleDeleteNote(note.noteID)} />
-                    </div>
                   </li>
                 ))}
               </ul>

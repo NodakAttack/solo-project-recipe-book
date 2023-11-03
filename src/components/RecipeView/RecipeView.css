@@ -31,14 +31,15 @@
     margin-bottom: 5px;
     position: relative;
   }
-  
-  .action-buttons {
-    right: 0;
-    display: flex; 
-    cursor: pointer;
-  }
 
   .bi {
     margin-right: 8px;
+    cursor: pointer;
   }
+
+  .bi-pencil, .bi-trash3 {
+    float:right;
+  }
+
+
   
