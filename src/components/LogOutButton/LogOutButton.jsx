@@ -10,6 +10,7 @@ function LogOutButton(props) {
       // is passed to it from it's parents through React props
       className={props.className}
       onClick={() => dispatch({ type: 'LOGOUT' })}
+      style={{backgroundColor: "rgba(255, 255, 255, 0)"}}
     >
       Log Out
     </button>

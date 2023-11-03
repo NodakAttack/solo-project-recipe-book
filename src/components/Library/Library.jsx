@@ -11,6 +11,7 @@ import {
   Typography,
   Button,
   Input,
+  TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -54,21 +55,29 @@ const Library = () => {
       <h1>Recipe List</h1>
       <div>
         <div>
-          <Input
+          <TextField
+            className="search-input"
             type="text"
-            placeholder="Search recipes"
+            placeholder="Search"
             inputRef={searchInputRef}
-            style={{ backgroundColor: 'grey', margin:'5px'}}
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
           />
-          <Button variant="contained" onClick={handleSearch} sx={{backgroundColor: 'red'}}>
+          <Button
+            variant="contained"
+            onClick={handleSearch}
+            sx={{ backgroundColor: "red" }}
+          >
             Search
           </Button>
-          <br/>
-          <br/>
+          <br />
+          <br />
         </div>
 
         {recipeList.map((recipe) => (
-          <Accordion key={recipe.recipeID} sx={{ backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+          <Accordion
+            key={recipe.recipeID}
+            sx={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+          >
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <div>
                 <Typography
