@@ -57,7 +57,7 @@ function AddRecipe() {
   };
 
   return (
-    <div className="container">
+    <div className="add-recipe-container">
       <Card className="add-recipe-card">
         <CardContent className="add-form">
           <h2 className="add-form-heading">Add a Recipe</h2>
