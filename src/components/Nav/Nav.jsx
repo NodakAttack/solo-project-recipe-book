@@ -11,7 +11,7 @@ function Nav() {
     <div className="nav">
       <Link to="/home">
         <h1 className="nav-title">
-        {user.id ? `Welcome, ${user.username}` : "--Food & Stuff--"}
+        <img src="970573.png" height={'100px'}/> {user.id ? `Welcome, ${user.username}` : "Food & Stuff"}
         </h1>
 
       </Link>
