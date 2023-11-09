@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
-require('dotenv').config();
 
 const AddImage = ({recipeID}) => {
 
